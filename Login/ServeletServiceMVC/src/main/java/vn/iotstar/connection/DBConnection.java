@@ -1,0 +1,37 @@
+package vn.iotstar.connection;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DBConnection {
+    private static final String jdbcURL = "jdbc:mysql://localhost:3306/mvc_demo?useSSL=false&serverTimezone=UTC";
+    private static final String jdbcUsername = "root";     // đổi theo MySQL của bạn
+    private static final String jdbcPassword = "Khuowng205@#";   // đổi theo MySQL của bạn
+
+    static {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver"); // Load MySQL driver
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Lấy kết nối
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+    }
+
+    // Test kết nối
+    public static void main(String[] args) {
+        try {
+            Connection conn = DBConnection.getConnection();
+            if (conn != null) {
+                System.out.println("Kết nối thành công!");
+                conn.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}

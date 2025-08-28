@@ -1,0 +1,33 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Đăng nhập</title>
+</head>
+<body>
+<form action="login" method="post">
+    <h2>Đăng nhập</h2>
+    <c:if test="${alert != null}">
+        <h3 class="alert alert-danger">${alert}</h3>
+    </c:if>
+
+    <section>
+        <label>Tài khoản</label><br/>
+        <input type="text" name="username" class="form-control"/>
+    </section>
+
+    <section>
+        <label>Mật khẩu</label><br/>
+        <input type="password" name="password" class="form-control"/>
+    </section>
+
+    <section>
+        <input type="checkbox" name="remember"/> Ghi nhớ đăng nhập
+    </section>
+
+    <button type="submit">Đăng nhập</button>
+</form>
+</body>
+</html>
