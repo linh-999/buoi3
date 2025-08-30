@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: my-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker-init:/docker-entrypoint-initdb.d
+    # Để script SQL luôn được thực thi khi khởi động lại, 
+    # hãy dùng lệnh: docker-compose down -v để xóa volume trước khi khởi động lại
+      
+  tomcat:
+    image: tomcat:10.1-jdk17
+    container_name: my-tomcat
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./target/baitap2-1.0.war:/usr/local/tomcat/webapps/baitap2.war
+      
+volumes:
+  mysql_data:
